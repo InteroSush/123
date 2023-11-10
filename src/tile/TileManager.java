@@ -13,8 +13,8 @@ import java.util.Objects;
 public class TileManager {
 
     GamePanel gp;
-    Tile[] tile;
-    int[][] mapTileNum;
+    public Tile[] tile;
+    public int[][] mapTileNum;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -61,11 +61,11 @@ public class TileManager {
             assert is != null;
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-            for (int i = 0; i<gp.maxWorldRow; i++) {
+            for (int i = 0; i<gp.maxWorldCol; i++) {
                 String line = br.readLine();
-                for (int j = 0; j < gp.maxWorldCol; j++) {
+                for (int j = 0; j < gp.maxWorldRow; j++) {
                     String[] numbers = line.split(" ");
-                    mapTileNum[i][j] = Integer.parseInt(numbers[j]);
+                    mapTileNum[j][i] = Integer.parseInt(numbers[j]);
                 }
             }
 
@@ -78,9 +78,9 @@ public class TileManager {
 
     public void draw(Graphics2D g2) {
 
-        for (int i = 0; i<gp.maxWorldRow; i++){
-            for (int j = 0; j<gp.maxWorldCol; j++){
-                int tileNum = mapTileNum[i][j];
+        for (int i = 0; i<gp.maxWorldCol; i++){
+            for (int j = 0; j<gp.maxWorldRow; j++){
+                int tileNum = mapTileNum[j][i];
                 int screenX = gp.tileSize*j - gp.player.worldX + gp.player.screenX;
                 int screenY = gp.tileSize*i - gp.player.worldY + gp.player.screenY;
                 if (screenX > -gp.tileSize && screenX < gp.screenWidth && screenY > -gp.tileSize && screenY < gp.screenHeight) {
